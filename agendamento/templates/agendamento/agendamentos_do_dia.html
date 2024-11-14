@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendamentos do Dia</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Agendamentos do Dia</h1>
+
+    {% if agendamentos %}
+        <table>
+            <tr>
+                <th>Nome do Proprietário</th>
+                <th>Telefone</th>
+                <th>Tipo de Veículo</th>
+                <th>Modelo do Veículo</th>
+                <th>Placa</th>
+                <th>Tipo de Serviço</th>
+                <th>Horário</th>
+                <th>Status</th>
+
+            </tr>
+            {% for agendamento in agendamentos %}
+            <tr>
+                <td>{{ agendamento.nome_proprietario }}</td>
+                <td>{{ agendamento.telefone }}</td>
+                <td>{{ agendamento.get_tipo_veiculo_display }}</td>
+                <td>{{ agendamento.modelo_veiculo }}</td>
+                <td>{{ agendamento.placa_veiculo }}</td>
+                <td>{{ agendamento.get_tipo_servico_display }}</td>
+                <td>{{ agendamento.data_agendamento|date:"H:i" }}</td>
+                <td>{{ agendamento.get_status_display }}</td>
+                <td>
+                    <form action="{% url 'alterar_status' agendamento.id 'pendente' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit">Pendente</button>
+                    </form>
+                    <form action="{% url 'alterar_status' agendamento.id 'em_andamento' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit">Em Andamento</button>
+                    </form>
+                    <form action="{% url 'alterar_status' agendamento.id 'concluido' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit">Concluído</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>Não há agendamentos para hoje.</p>
+    {% endif %}
+</body>
+</html>
