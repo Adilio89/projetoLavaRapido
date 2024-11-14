@@ -48,9 +48,9 @@
                 <td>{{ agendamento.data_agendamento|date:"H:i" }}</td>
                 <td>{{ agendamento.get_status_display }}</td>
                 <td>
-                    <form action="{% url 'alterar_status' agendamento.id 'pendente' %}" method="post">
+                    <form action="{% url 'alterar_status' agendamento.id 'aguardando' %}" method="post">
                         {% csrf_token %}
-                        <button type="submit">Pendente</button>
+                        <button type="submit">Aguardando</button>
                     </form>
                     <form action="{% url 'alterar_status' agendamento.id 'em_andamento' %}" method="post">
                         {% csrf_token %}
@@ -67,5 +67,7 @@
     {% else %}
         <p>Não há agendamentos para hoje.</p>
     {% endif %}
+
+    <a class="button" href="{% url 'index' %}">Voltar</a>
 </body>
 </html>

@@ -3,15 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index</title>
+    <title>Inicio</title>
 </head>
 <body>
+
+    <h1>Bem-vindo ao Sistema de Lava-Rápido</h1>
     <nav>
-        <a href="{% url 'agendamentos_do_dia' %}">Agendamentos do Dia</a>
+        <ul class="nav">
+  <li class="nav-item">
+    <a href="{% url 'index' %}">Inicio</a>
+  </li>
+  <li class="nav-item">
+    <a href="{% url 'agendamentos_do_dia' %}">Agendamentos do Dia</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">Link</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+  </li>
+</ul>
+
+
+
+
         <!-- Adicione outros links do menu conforme necessário -->
     </nav>
 
-    <h1>Bem-vindo ao Sistema de Lava-Rápido</h1>
+
 
     <!-- Conteúdo principal da página -->
 </body>
