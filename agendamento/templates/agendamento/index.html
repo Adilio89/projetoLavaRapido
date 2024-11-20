@@ -1,27 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio</title>
-</head>
-<body>
+{% extends 'base_templates/base.html' %}
 
-    <h1>Bem-vindo ao Sistema de Lava-Rápido</h1>
-    <nav>
-        <ul class="nav">
-          <li class="nav-item">
-            <a href="{% url 'index' %}">Inicio</a>
-          </li>
-          <li class="nav-item">
-            <a href="{% url 'agendamentos_do_dia' %}">Agendamentos do Dia</a>
-          </li>
-        </ul>
-        <!-- Adicione outros links do menu conforme necessário -->
-    </nav>
+{% block title %}
+Início
+{% endblock %}
 
-    <!-- Conteúdo principal da página -->
-    <button type="button">Agendar Agora</button>
-
-</body>
-</html>
+{% block content %}
+<h2>Bem-vindo ao Sistema!</h2>
+<p>Este é o sistema de agendamento de serviços do Lava-Rápido.</p>
+{% endblock %}

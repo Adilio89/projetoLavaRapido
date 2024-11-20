@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Buscar Registros
+{% endblock %}
+
+{% block content %}
+    <h1>Registros Salvos no Banco de Dados</h1>
+
+    {% if registros %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nome do Proprietário</th>
+                    <th>Telefone</th>
+                    <th>Tipo de Veículo</th>
+                    <th>Modelo</th>
+                    <th>Placa</th>
+                    <th>Tipo de Serviço</th>
+                    <th>Data e Hora</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for registro in registros %}
+                <tr>
+                    <td>{{ registro.nome_proprietario }}</td>
+                    <td>{{ registro.telefone }}</td>
+                    <td>{{ registro.tipo_veiculo }}</td>
+                    <td>{{ registro.modelo_veiculo }}</td>
+                    <td>{{ registro.placa_veiculo }}</td>
+                    <td>{{ registro.tipo_servico }}</td>
+                    <td>{{ registro.data_horario }}</td>
+                    <td>{{ registro.status }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Não há registros disponíveis no banco de dados.</p>
+    {% endif %}
+{% endblock %}
+
+<a href="{% url 'buscar_registros' %}" class="btn btn-primary">Buscar Registros</a>
