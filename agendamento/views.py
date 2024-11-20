@@ -42,11 +42,3 @@ def agendar(request):
 def minha_view(request):
     messages.success(request, "Agendamento realizado com sucesso!")
     return render(request, 'index.html')
-
-
-def buscar_registros(request):
-    # Consultar todos os registros no banco de dados
-    registros = Agendamento.objects.all()
-
-    # Passar os registros para o template
-    return render(request, 'agendamento/buscar_registros.html', {'registros': registros})
