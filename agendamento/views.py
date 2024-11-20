@@ -12,13 +12,11 @@ def index(request):
 
 
 def agendamentos_do_dia(request):
-        if request.method == 'POST':  # Quando o botão de buscar for clicado
-            agendamentos = Agendamento.objects.all()  # Busca todos os registros do banco
-
-        else:  # Caso seja um GET padrão, apenas os agendamentos do dia são exibidos
-            agendamentos = Agendamento.objects.filter(data_agendamento__date=datetime.date.today())
-
-        return render(request, 'agendamento/agendamentos_do_dia.html', {'agendamentos': agendamentos})
+    if request.method == 'POST':
+        agendamentos = Agendamento.objects.all()
+    else:
+        agendamentos = Agendamento.objects.filter(data_agendamento__date=datetime.date.today())
+    return render(request, 'agendamento/agendamentos_do_dia.html', {'agendamentos': agendamentos})
 
 
 @require_POST
@@ -38,7 +36,6 @@ def agendar(request):
             return redirect('agendamentos_do_dia')  # Redireciona para a lista de agendamentos do dia
     else:
         form = AgendamentoForm()  # Cria um formulário vazio para GET
-
     return render(request, 'agendamento/agendar.html', {'form': form})
 
 
