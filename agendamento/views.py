@@ -5,6 +5,7 @@ from .models import Agendamento
 from .forms import AgendamentoForm
 from django.contrib import messages
 from django.urls import reverse
+from django.utils.timezone import now
 
 
 def index(request):
@@ -42,3 +43,14 @@ def agendar(request):
 def minha_view(request):
     messages.success(request, "Agendamento realizado com sucesso!")
     return render(request, 'index.html')
+
+
+def concluir_agendamento(request, agendamento_id):
+    agendamento = get_object_or_404(Agendamento, id=agendamento_id)
+
+    # Atualize o status e registre a hora de término
+    agendamento.status = 'concluido'
+    agendamento.horario_termino = now()
+    agendamento.save()
+
+    return redirect('agendamentos_do_dia')

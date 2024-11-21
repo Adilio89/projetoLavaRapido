@@ -18,7 +18,6 @@ class Agendamento(models.Model):
     STATUS_CHOICES = [
         ('aguardando', 'Aguardando'),
         ('em_andamento', 'Em Andamento'),
-        ('concluido', 'Concluído'),
     ]
 
     nome_proprietario = models.CharField(max_length=100)
@@ -27,9 +26,9 @@ class Agendamento(models.Model):
     modelo_veiculo = models.CharField(max_length=100)
     placa_veiculo = models.CharField(max_length=10)
     tipo_servico = models.CharField(max_length=25, choices=TIPO_SERVICO_CHOICES)
-    data_agendamento = models.DateTimeField(null=True, blank=True)
-    status = models.CharField(max_length=15, choices=STATUS_CHOICES, default='aguardando'
-    )
+    data_agendamento = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=15, choices=STATUS_CHOICES, default='aguardando',)
+    horario_termino = models.DateTimeField(null=True, blank=True)
 
     @property
     def horario_agendado(self):

@@ -1,12 +1,11 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <title>Agendamentos do Dia</title>
-</head>
-<body>
+{% extends 'base_templates/base.html' %}
+
+{% block title %}
+    Agenda do dia
+{% endblock %}
+
+
+{% block content %}
     <div class="container mt-4">
         <h1 class="text-center">Agendamentos do Dia</h1>
 
@@ -20,8 +19,9 @@
                         <th>Modelo do Veículo</th>
                         <th>Placa</th>
                         <th>Tipo de Serviço</th>
-                        <th>Horário</th>
+                        <th>Horário chegada</th>
                         <th>Status</th>
+                        <th>Hora de Término</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -37,16 +37,20 @@
                         <td>{{ agendamento.data_agendamento|date:"H:i" }}</td>
                         <td>{{ agendamento.get_status_display }}</td>
                         <td>
+                            {% if agendamento.horario_termino %}
+                                {{ agendamento.horario_termino|date:"H:i" }}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                        <td>
                             {% if agendamento.status != 'concluido' %}
-                                <form action="{% url 'alterar_status' agendamento.id 'aguardando' %}" method="post" class="display:inline">
-                                    {% csrf_token %}
-                                    <button type="submit" class="btn btn-warning btn-sm">Aguardando</button>
-                                </form>
+
                                 <form action="{% url 'alterar_status' agendamento.id 'em_andamento' %}" method="post" class="display:inline">
                                     {% csrf_token %}
                                     <button type="submit" class="btn btn-info btn-sm">Em Andamento</button>
                                 </form>
-                                <form action="{% url 'alterar_status' agendamento.id 'concluido' %}" method="post" class="display:inline">
+                                <form action="{% url 'concluir_agendamento' agendamento.id   %}" method="post" class="display:inline">
                                     {% csrf_token %}
                                     <button type="submit" class="btn btn-success btn-sm">Concluído</button>
                                 </form>
@@ -67,16 +71,13 @@
         <form method="post" action="{% url 'agendamentos_do_dia' %}" class="d-flex justify-content-end mb-4">
             {% csrf_token %}
             <button type="submit" class="btn btn-primary">Buscar Todos os Registros</button>
-
-            <div class="d-flex justify-content-between mt-4">
-            <a href="{% url 'index' %}" class="btn btn-secondary">Voltar</a>
-        </div>
-
         </form>
 
+        <div class="d-flex justify-content-between mt-4">
+                <a href="{% url 'index' %}" class="btn btn-secondary">Voltar</a>
+        </div>
 
     </div>
+{% endblock %}
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-</body>
-</html>
+
